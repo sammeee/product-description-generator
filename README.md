@@ -25,4 +25,4 @@ Hugging Face Inference API.
 4. Run: `streamlit run app.py`
 
 ## Try It Now
-[Link to your deployed app or screenshots]
+[Live Demo → Product Description Generator](https://szamadesh-product-description-generator.hf.space)
