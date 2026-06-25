@@ -1,3 +1,14 @@
+---
+title: Product Description Generator
+emoji: 🛍️
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.58.0
+app_file: app.py
+pinned: false
+license: apache-2.0
+---
 # Product Description Generator
 
 AI-powered tool that generates marketing copy for e-commerce products.
