@@ -114,6 +114,8 @@ streamlit run app.py
 
 - Few-shot examples produce noticeably different outputs per tone
 - Groq provides very low latency responses
+- Using `max_tokens=200` keeps the descriptions concise and suitable for e-commerce
+- Occasionally the model returns an empty response on the luxury tone for certain products — a fallback prompt is used to handle this
 - Temperature of 0.7 gives a good balance between creativity and consistency
 - Model performs best on physical consumer products
 
