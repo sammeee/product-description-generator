@@ -3,7 +3,7 @@ import os
 
 
 client = InferenceClient(
-    model="meta-llama/Llama-3.1-8B-Instruct",
+    model="meta-llama/Llama-3.2-3B-Instruct",
     token=os.environ.get("HF_TOKEN")
     )
 
