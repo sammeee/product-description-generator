@@ -1,11 +1,14 @@
-from huggingface_hub import InferenceClient
+#from huggingface_hub import InferenceClient
+from groq import Groq
 import os
 
 
-client = InferenceClient(
-    model="HuggingFaceH4/zephyr-7b-beta",
-    token=os.environ.get("HF_TOKEN")
-    )
+# client = InferenceClient(
+#     model="HuggingFaceH4/zephyr-7b-beta",
+#     token=os.environ.get("HF_TOKEN")
+#     )
+
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 #Few-Shot: Tones with Examples
 FEW_SHOT_EXAMPLES = {
@@ -53,11 +56,18 @@ Description:"""
     #     temperature=0.7
     #     )
 
-    response = client.text_generation(
-        prompt=prompt,
-        max_new_tokens=200,
+    # response = client.text_generation(
+    #     prompt=prompt,
+    #     max_new_tokens=200,
+    #     temperature=0.7
+    #     )
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",         
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=200,
         temperature=0.7
         )
 
-    #return response.choices[0].message.content.strip()
-    return response.strip()
+    return response.choices[0].message.content.strip()
+    # return response.strip()
