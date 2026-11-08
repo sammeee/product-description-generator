@@ -35,19 +35,19 @@ Description: Where form meets function in perfect harmony. Our bespoke standing 
 """
 }
 
-def generate_description(product_name:str, tone:str)->str:
-    """Generate a product description using few-shot prompting"""
+# def generate_description(product_name:str, tone:str)->str:
+#     """Generate a product description using few-shot prompting"""
 
-    examples = FEW_SHOT_EXAMPLES.get(tone, FEW_SHOT_EXAMPLES["professional"])
+#     examples = FEW_SHOT_EXAMPLES.get(tone, FEW_SHOT_EXAMPLES["professional"])
     
-    prompt = f"""You are a professional copywriter. Generate a product description in a {tone} tone.
-Study these examples carefully and match their style exactly:
+#     prompt = f"""You are a professional copywriter. Generate a product description in a {tone} tone.
+# Study these examples carefully and match their style exactly:
 
-{examples}
-Now write a description for the following. Output the description only, nothing else.
+# {examples}
+# Now write a description for the following. Output the description only, nothing else.
 
-Product: {product_name}
-Description:"""
+# Product: {product_name}
+# Description:"""
 
     # text_completion -> text_generation
     # response = client.text_completion(
@@ -62,12 +62,40 @@ Description:"""
     #     temperature=0.7
     #     )
 
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",         
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=200,
-        temperature=0.7
-        )
+    # response = client.chat.completions.create(
+    #     model="openai/gpt-oss-20b",         
+    #     messages=[{"role": "user", "content": prompt}],
+    #     max_tokens=200,
+    #     temperature=0.7
+    #     )
 
-    return response.choices[0].message.content.strip()
+    # return response.choices[0].message.content.strip()
     # return response.strip()
+
+def generate_description(product_name: str, tone: str) -> str:
+    """Generate a product description using few-shot prompting"""
+    examples = FEW_SHOT_EXAMPLES.get(tone, FEW_SHOT_EXAMPLES["professional"])
+    
+    prompt = f"""You are a professional copywriter. Generate a product description in a {tone} tone.
+Study these examples carefully and match their style exactly:
+{examples}
+Now write a description for the following. Output the description only, nothing else.
+Product: {product_name}
+Description:"""
+
+    try:
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-20b",         
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=250,
+            temperature=0.7
+        )
+        
+        result = response.choices[0].message.content
+        if result is None:
+            return "Error: Model returned empty response."
+        
+        return result.strip()
+        
+    except Exception as e:
+        return f"Error generating description: {str(e)}"
