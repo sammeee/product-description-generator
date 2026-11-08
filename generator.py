@@ -147,7 +147,7 @@ Description:"""
         response = client.chat.completions.create(
             model="openai/gpt-oss-20b",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=300,
+            max_tokens=200,
             temperature=0.7,
         )
 
