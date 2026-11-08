@@ -163,7 +163,7 @@ Make it sound premium and well-written. Output only the description."""
         response = client.chat.completions.create(
             model="openai/gpt-oss-20b",
             messages=[{"role": "user", "content": fallback_prompt}],
-            max_tokens=250,
+            max_tokens=200,
             temperature=0.8,
         )
 
