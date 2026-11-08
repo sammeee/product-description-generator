@@ -3,7 +3,7 @@ import os
 
 
 client = InferenceClient(
-    model="https://huggingface.co",
+    model="Qwen/Qwen2.5-7B-Instruct",
     token=os.environ.get("HF_TOKEN")
     )
 
@@ -49,7 +49,8 @@ Description:"""
     response = client.chat_completion(
         messages=[{"role":"user","content":prompt}],
         max_tokens=200,
-        temperature=0.7
+        temperature=0.7,
+        provider=hf-inference
         )
 
     return response.choices[0].message.content.strip()
