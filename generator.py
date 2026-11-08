@@ -134,11 +134,11 @@ def generate_description(product_name: str, tone: str) -> str:
 
     prompt = f"""You are a professional copywriter. Write a product description in a {tone} tone.
 
-Here are some examples of the style to match:
+Here are examples of the desired style:
 
 {examples}
 
-Now write a description for this product. Output ONLY the description text, nothing else.
+Now write a description for this product. Output ONLY the description text.
 
 Product: {product_name}
 Description:"""
@@ -146,19 +146,29 @@ Description:"""
     try:
         response = client.chat.completions.create(
             model="openai/gpt-oss-20b",
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
+            messages=[{"role": "user", "content": prompt}],
             max_tokens=300,
             temperature=0.7,
         )
 
         content = response.choices[0].message.content
 
-        if not content or content.strip() == "":
-            return "⚠️ Model returned an empty response. Please try again."
+        if content and content.strip():
+            return content.strip()
 
-        return content.strip()
+        # Fallback if the first attempt returns empty
+        fallback_prompt = f"""Write a compelling product description for "{product_name}" in a {tone} tone. 
+Make it sound premium and well-written. Output only the description."""
+
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-20b",
+            messages=[{"role": "user", "content": fallback_prompt}],
+            max_tokens=250,
+            temperature=0.8,
+        )
+
+        content = response.choices[0].message.content
+        return content.strip() if content else "Could not generate a description. Please try again."
 
     except Exception as e:
-        return f"❌ Error: {str(e)}"
+        return f"Error: {str(e)}"
