@@ -47,11 +47,17 @@ Product: {product_name}
 Description:"""
 
     # text_completion -> text_generation
+    # response = client.text_completion(
+    #     messages=[{"role":"user","content":prompt}],
+    #     max_tokens=200,
+    #     temperature=0.7
+    #     )
+
     response = client.text_generation(
-        messages=[{"role":"user","content":prompt}],
-        max_tokens=200,
+        prompt=prompt,
+        max_new_tokens=200,
         temperature=0.7
         )
 
-    #return response.choices.message.content.strip()
+    #return response.choices[0].message.content.strip()
     return response.strip()
