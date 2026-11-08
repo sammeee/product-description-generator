@@ -46,10 +46,12 @@ Now write a description for the following. Output the description only, nothing 
 Product: {product_name}
 Description:"""
 
+    # text_completion -> text_generation
     response = client.text_generation(
         messages=[{"role":"user","content":prompt}],
         max_tokens=200,
         temperature=0.7
         )
 
-    return response.choices.message.content.strip()
+    #return response.choices.message.content.strip()
+    return response.strip()
