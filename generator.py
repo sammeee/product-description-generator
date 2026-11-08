@@ -3,7 +3,7 @@ import os
 
 
 client = InferenceClient(
-    model="google/gemma-2-2b-it",
+    model="https://huggingface.co",
     token=os.environ.get("HF_TOKEN")
     )
 
