@@ -124,10 +124,11 @@ streamlit run app.py
 ## 🔮 Future Improvements
 
 - [ ] Add more tone options (Minimalist, Technical, Playful)
-- [ ] Support bulk generation from a CSV upload
+- [ ] Support bulk CSV upload and export for generating multiple product descriptions at once
 - [ ] Add copy-to-clipboard button for each description
-- [ ] Wrap generation logic in a FastAPI endpoint
-- [ ] Fine-tune on a larger e-commerce dataset for better quality
+- [ ] Wrap generation logic in a FastAPI backend endpoint with API key authentication
+- [ ] Add custom brand voice presets and persistent history storage (SQLite)
+- [ ] Add unit and integration tests (`pytest`) for prompt formatting and error handling
 
 ---
 
